@@ -5,9 +5,13 @@ import ru.mephi.nucleardroid.network.network.AmiiboService
 
 class RetrofitService : AmiiboService {
 
-    override suspend fun getAllAmiibos(): Result<AmiiboResponse> =
-        Result.failure(NotImplementedError())
+    private val amiiboApi: RetrofitAmiiboApi = RetrofitClient.instance.create(RetrofitAmiiboApi::class.java)
 
-    override suspend fun getAmiibosByCharacter(character: String): Result<AmiiboResponse> =
-        Result.failure(NotImplementedError())
+    override suspend fun getAllAmiibos(): Result<AmiiboResponse> = runCatching {
+        amiiboApi.getAllAmiibos()
+    }
+
+    override suspend fun getAmiibosByCharacter(character: String): Result<AmiiboResponse> = runCatching {
+        amiiboApi.getAmiiboByCharacter(character)
+    }
 }
