@@ -41,9 +41,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -295,13 +297,15 @@ fun AmiiboItem(amiibo: Amiibo) {
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Image(
-                imageVector = Icons.Default.Face,
+            AsyncImage(
+                model = amiibo.image,
                 contentDescription = "Amiibo image",
                 modifier = Modifier
                     .size(80.dp)
                     .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                placeholder = rememberVectorPainter(Icons.Default.Face),
+                error = rememberVectorPainter(Icons.Default.Face)
             )
 
             Spacer(modifier = Modifier.width(16.dp))
